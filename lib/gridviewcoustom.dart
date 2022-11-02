@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class OrientationDemo extends StatelessWidget {
+class CoustomGrid extends StatelessWidget {
+  //const CoustomGrid({super.key});
   var img = <String>[
     'https://images.pexels.com/photos/3709369/pexels-photo-3709369.jpeg?auto=compress&cs=tinysrgb&w=600',
     'https://images.pexels.com/photos/3131971/pexels-photo-3131971.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -14,38 +15,21 @@ class OrientationDemo extends StatelessWidget {
     'https://images.pexels.com/photos/2240571/pexels-photo-2240571.jpeg?auto=compress&cs=tinysrgb&w=600'
   ];
 
-  //const OrientationDemo({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Orientation Demo"),
-        centerTitle: true,
-      ),
-      body: GridView.count(
-        padding: EdgeInsets.all(20),
-        crossAxisCount: 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        shrinkWrap: true,
-        children: List.generate(img.length, (index) {
-          return Container(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              // child: Image.network(
-              //   img[index],
-              //   fit: BoxFit.cover,
-              // ),
-            ),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(img[index]), fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(37),
-            ),
+      appBar: AppBar(),
+      body: GridView.custom(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        childrenDelegate: SliverChildBuilderDelegate((BuildContext, index) {
+          return Image.network(
+            img[index],
+            fit: BoxFit.cover,
           );
-        }),
+        }, childCount: img.length),
+        padding: EdgeInsets.all(10),
+        shrinkWrap: true,
       ),
     );
   }
